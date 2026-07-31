@@ -78,9 +78,12 @@ export function AppShell({ children }: PropsWithChildren) {
     <div className="workspace">
       <nav className="sidebar" aria-label="Manager navigation">
         <p>Workspace</p>
-        {navigation.map(([to, label, Icon]) => <Link key={to} to={to} className={location === to ? 'active' : ''}>
-          <Icon aria-hidden="true" /><span>{label}</span>
-        </Link>)}
+        {navigation.map(([to, label, Icon]) => {
+          const active = location === to
+          return <Link key={to} to={to} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined} aria-label={label} title={label}>
+            <Icon aria-hidden="true" /><span>{label}</span>
+          </Link>
+        })}
         <div className="sidebar-foot">
           {bootstrap.data?.remoteConfiguratorUrl && <a href={bootstrap.data.remoteConfiguratorUrl} target="_blank" rel="noreferrer"><ExternalLink /><span>Web Configurator</span></a>}
         </div>
